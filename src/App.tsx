@@ -1,11 +1,12 @@
 import './App.css'
+import { ProductListProvider } from './context/ProductContext/ProductListProvider'
+import ProductList from './pages/Products/ProductList'
 
 function App() {
-
   return (
-    <>
-      <h1>React Interview Kit</h1>
-    </>
+    <ProductListProvider>
+      <ProductList />
+    </ProductListProvider>
   )
 }
 
