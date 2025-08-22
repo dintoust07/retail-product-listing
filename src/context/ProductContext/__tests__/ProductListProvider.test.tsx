@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { describe, it, expect, } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { ProductListProvider } from '../ProductListProvider';
 import { ProductContext } from '../UseProductListContext';
 import products from '../../../pages/Products/Fixtures/ProductList'
@@ -38,5 +38,18 @@ describe('ProductListProvider', () => {
       </ProductListProvider>
     );
     expect(screen.getByTestId('totalProducts').textContent).toBe('0');
+  });
+
+   it('updates productResponse when handleProductResponse is called', () => {
+    render(
+      <ProductListProvider>
+        <TestConsumer />
+      </ProductListProvider>
+    );
+
+    const button = screen.getByText('Set Products');
+    fireEvent.click(button);
+
+    expect(screen.getByTestId('totalProducts').textContent).toBe('1');
   });
 });
