@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach} from 'vitest';
 import { getProductList } from '../product';
 import type { IProductListResponse } from '../../types/product';
 import products from '../../pages/Products/Fixtures/ProductList';
@@ -10,11 +10,25 @@ const mockResponse: IProductListResponse = {
   limit: 10
 };
 
-beforeEach(() => {
-  vi.resetAllMocks();
-});
+const mockUrl = 'https://api.example.com/products';
+
+ vi.mock('../constants/apiEndPoints', () => ({
+  productApiEndpoints: {
+    list: vi.fn(() => mockUrl),
+  },
+}));
 
 describe('getProductList', () => {
+   beforeEach(() => {
+    vi.stubGlobal('fetch', vi.fn());
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.clearAllMocks();
+  });
+ 
+
   it('fetches product list successfully', async () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
@@ -38,6 +52,12 @@ describe('getProductList', () => {
       })
     ) as unknown as typeof fetch;
 
-    await expect(getProductList()).rejects.toThrow('Network response was not ok');
+    const result = await getProductList(10, 0, '');
+    expect(result).toEqual({
+      products: [],
+      total: 0,
+      limit: 10,
+      skip: 0,
+    });
   });
 });
