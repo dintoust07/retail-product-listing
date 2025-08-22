@@ -3,6 +3,7 @@ import useProductList  from '../../hooks/Products/useProductList'
 import type { IProductList, IProductListResponse } from '../../types/product';
 import { getProductList } from '../../services/product';
 import SearchBar from '../../components/SearchBar';
+import styles from '../styles';
 
 export default function ProductList():React.ReactNode {
   const { 
@@ -23,7 +24,7 @@ export default function ProductList():React.ReactNode {
   }
  
   return (
-    <>
+    <div style={styles.productContainer}>
       <SearchBar
         data-testid="search-bar"
         handleSearch={handleSearch}
@@ -34,6 +35,6 @@ export default function ProductList():React.ReactNode {
         key="product-table"
         productList={productList}
       />
-    </>
+    </div>
   )
 }

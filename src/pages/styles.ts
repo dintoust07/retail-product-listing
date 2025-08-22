@@ -1,4 +1,11 @@
 const styles: {[key:string]: React.CSSProperties} = {
+  productContainer:{ 
+    display: 'flex', 
+    flexDirection: 'column', 
+    justifyContent: 'flex-start', 
+    alignItems: 'center',
+    minHeight: 600
+  },
   productTableContainer:{
     width:1000,
      marginTop: 20
