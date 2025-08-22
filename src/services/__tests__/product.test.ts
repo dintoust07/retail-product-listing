@@ -3,13 +3,6 @@ import { getProductList } from '../product';
 import type { IProductListResponse } from '../../types/product';
 import products from '../../pages/Products/Fixtures/ProductList';
 
-vi.mock('../constants/apiEndPoints', () => ({
-  productApiEndpoints: {
-    list: (limit: number, skip: number, term: string) =>
-      `https://mock.com/products?q=${term}&limit=${limit}&skip=${skip}`,
-  },
-}));
-
 const mockResponse: IProductListResponse = {
   products: products,
   total: 20,
